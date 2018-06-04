@@ -1,33 +1,42 @@
 # Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
-QCOM_BOARD_PLATFORMS := msm7627_surf
-QCOM_BOARD_PLATFORMS += msm7627_6x
-QCOM_BOARD_PLATFORMS += msm7627a
-QCOM_BOARD_PLATFORMS += msm7630_surf
-QCOM_BOARD_PLATFORMS += msm7630_fusion
-QCOM_BOARD_PLATFORMS += msm8226
+
+# A Family
+QCOM_BOARD_PLATFORMS += msm7x27a
+QCOM_BOARD_PLATFORMS += msm7x30
 QCOM_BOARD_PLATFORMS += msm8660
-QCOM_BOARD_PLATFORMS += msm8909
-QCOM_BOARD_PLATFORMS += msm8916
-QCOM_BOARD_PLATFORMS += msm8939
-QCOM_BOARD_PLATFORMS += msm8937
-QCOM_BOARD_PLATFORMS += msm8952
-QCOM_BOARD_PLATFORMS += msm8953
+
 QCOM_BOARD_PLATFORMS += msm8960
+
+# B Family
+
+QCOM_BOARD_PLATFORMS += msm8226
+QCOM_BOARD_PLATFORMS += msm8610
 QCOM_BOARD_PLATFORMS += msm8974
+
+QCOM_BOARD_PLATFORMS += apq8084
+
+# B64 Family
 QCOM_BOARD_PLATFORMS += msm8992
 QCOM_BOARD_PLATFORMS += msm8994
+
+# BR Family
+QCOM_BOARD_PLATFORMS += msm8909
+QCOM_BOARD_PLATFORMS += msm8916
+
+QCOM_BOARD_PLATFORMS += msm8952
+
+# UM Family
+QCOM_BOARD_PLATFORMS += msm8937
+QCOM_BOARD_PLATFORMS += msm8953
 QCOM_BOARD_PLATFORMS += msm8996
 QCOM_BOARD_PLATFORMS += msm8998
-QCOM_BOARD_PLATFORMS += apq8084
-QCOM_BOARD_PLATFORMS += sdm660
-QCOM_BOARD_PLATFORMS += sdm845
 
-MSM7K_BOARD_PLATFORMS := msm7630_surf
-MSM7K_BOARD_PLATFORMS += msm7630_fusion
-MSM7K_BOARD_PLATFORMS += msm7627_surf
-MSM7K_BOARD_PLATFORMS += msm7627_6x
-MSM7K_BOARD_PLATFORMS += msm7627a
+QCOM_BOARD_PLATFORMS += sdm660
+
+MSM7K_BOARD_PLATFORMS := msm7x30
+MSM7K_BOARD_PLATFORMS += msm7x27
+MSM7K_BOARD_PLATFORMS += msm7x27a
 MSM7K_BOARD_PLATFORMS += msm7k
 
 QSD8K_BOARD_PLATFORMS := qsd8k
@@ -110,11 +119,13 @@ endef
 # The following utilities are meant for board platform specific
 # featurisation
 
+ifndef get-vendor-board-platforms
 # $(call get-vendor-board-platforms,v)
 # returns list of board platforms for vendor v
 define get-vendor-board-platforms
-$($(1)_BOARD_PLATFORMS)
+$(if $(call match-word,$(BOARD_USES_$(1)_HARDWARE),true),$($(1)_BOARD_PLATFORMS))
 endef
+endif # get-vendor-board-platforms
 
 # $(call is-board-platform,bp)
 # returns true or empty
@@ -190,11 +201,6 @@ GINGERBREAD_SDK_VERSIONS := 9 10
 HONEYCOMB_SDK_VERSIONS := 11 12 13
 ICECREAM_SANDWICH_SDK_VERSIONS := 14 15
 JELLY_BEAN_SDK_VERSIONS := 16 17 18
-KITKAT_SDK_VERSIONS := 19
-LOLLIPOP_SDK_VERSIONS := 21 22
-MARSHMALLOW_SDK_VERSIONS := 23
-NOUGAT_SDK_VERSIONS := 24 25
-OREO_SDK_VERSIONS := 26
 
 # $(call is-platform-sdk-version-at-least,version)
 # version is a numeric SDK_VERSION defined above
